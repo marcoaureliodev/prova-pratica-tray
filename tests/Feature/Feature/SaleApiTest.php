@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Feature;
+namespace Tests\Feature;
 
 use App\Models\Seller;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -35,5 +35,21 @@ class SaleApiTest extends TestCase
                  ]);
 
         $this->assertDatabaseHas('sales', ['value' => 100.00]);
+    }
+
+    /** @test */
+    public function it_can_list_all_sales()
+    {
+        // Arrange: Crie 2 vendedores, cada um com 2 vendas
+        Seller::factory(2)
+            ->has(\App\Models\Sale::factory()->count(2))
+            ->create();
+
+        // Act: Faça a requisição para o endpoint de listagem de vendas
+        $response = $this->getJson('/api/sales');
+
+        // Assert: Verifique se a resposta está correta
+        $response->assertStatus(200);
+        $response->assertJsonCount(4, 'data'); // Total de 4 vendas
     }
 }

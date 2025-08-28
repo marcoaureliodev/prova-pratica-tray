@@ -15,7 +15,8 @@ class SaleController extends Controller
      */
     public function index()
     {
-        //
+        $sales = Sale::with('seller')->get();
+        return SaleResource::collection($sales);
     }
 
     /**

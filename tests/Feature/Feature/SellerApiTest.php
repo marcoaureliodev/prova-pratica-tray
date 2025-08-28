@@ -53,4 +53,32 @@ class SellerApiTest extends TestCase
         $response->assertStatus(422) // Unprocessable Entity
                 ->assertJsonValidationErrors('email');
     }
+
+    /** @test */
+    public function it_can_list_sales_for_a_specific_seller()
+    {
+        // Arrange: Crie um vendedor com vendas e outro sem
+        $sellerWithSales = Seller::factory()
+            ->has(\App\Models\Sale::factory()->count(3))
+            ->create();
+
+        $sellerWithoutSales = Seller::factory()->create();
+
+        // Act: Faça a requisição para o endpoint de vendas do primeiro vendedor
+        $response = $this->getJson("/api/sellers/{$sellerWithSales->id}/sales");
+
+        // Assert: Verifique a resposta
+        $response->assertStatus(200);
+        $response->assertJsonCount(3, 'data');
+        $response->assertJsonStructure([
+            'data' => [
+                '*' => [
+                    'id',
+                    'value',
+                    'commission',
+                    'sale_date'
+                ]
+            ]
+        ]);
+    }
 }
