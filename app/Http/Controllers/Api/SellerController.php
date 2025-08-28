@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreSellerRequest;
 use App\Http\Resources\SellerResource;
 use App\Models\Seller;
 
@@ -16,14 +17,16 @@ class SellerController extends Controller
      public function index()
      {
         return SellerResource::collection(Seller::all());
+        //Ação 4: Commit do Progresso
      }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreSellerRequest $request)
     {
-        //
+        $seller = Seller::create($request->validated());
+        return new SellerResource($seller);
     }
 
     /**
