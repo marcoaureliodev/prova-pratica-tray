@@ -1,61 +1,86 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Desafio Técnico: Sistema de Vendas e Comissões
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este projeto é a solução para o Desafio Técnico de Programador PHP III, que consiste em um sistema web para cadastro de vendas e cálculo de comissões para vendedores.
 
-## About Laravel
+O sistema é dividido em duas partes:
+* **API Backend:** Desenvolvida com Laravel, responsável pela lógica de negócio, gerenciamento de dados e envio de e-mails.
+* **Aplicação Frontend:** Desenvolvida com Vue.js, para interação do usuário com a API.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tecnologias Utilizadas
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* **Backend:** PHP (Laravel)
+* **Frontend:** Vue.js
+* **Banco de Dados:** MySQL
+* **Ambiente de Desenvolvimento:** Docker (com Laravel Sail)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Pré-requisitos
 
-## Learning Laravel
+Para executar este projeto, você precisará ter instalado em sua máquina:
+* Docker
+* Docker Compose
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Instalação e Execução
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**1. Clonar o Repositório**
+```bash
+git clone https://github.com/marcoaureliodev/prova-pratica-tray.git
+cd prova-pratica-tray
 
-## Laravel Sponsors
+**2. Configuração do Backend (API - Laravel)**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+* **Inicie os contêineres Docker:**
+```bash
+./vendor/bin/sail up -d
 
-### Premium Partners
+* **Instale as dependências do PHP:**
+```bash
+./vendor/bin/sail composer install
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+* **Gerar chave da aplicação:**
+```bash
+./vendor/bin/sail artisan key:generate
 
-## Contributing
+* **Execute as Migrations e Seeders:** Isso criará as tabelas e populará o banco de dados com dados de exemplo. 
+```bash
+./vendor/bin/sail artisan migrate --seed
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+**3. Configuração do Frontend (Aplicação - Vue.js)**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+* **Navegue até a pasta do frontend:*
+```bash
+cd frontend
 
-## Security Vulnerabilities
+* **Instale as dependências do JavaScript:**
+```bash
+npm install
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+* **Inicie o servidor de desenvolvimento do Vue:**
+```bash
+npm run dev
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Após seguir todos os passos, a API estará acessível em http://localhost e a aplicação frontend em http://localhost:5173 (ou outra porta indicada no terminal).
+
+
+## Endpoints da API
+
+A API fornece os seguintes endpoints:
+
+| Método | Rota | Descrição |
+| GET | /api/sellers | Lista todos os vendedores. |
+| POST | /api/sellers | Cadastra um novo vendedor. |
+| GET | /api/sales | Lista todas as vendas do sistema. |
+| POST | /api/sales | Cadastra uma nova venda. |
+| GET | /api/sellers/{id}/sales | Lista todas as vendas de um vendedor específico. |
+| POST | /api/sellers/{id}/resend-report | Reenvia o relatório diário para um vendedor. |
+
+
+## Executando os Testes
+
+Para rodar a suíte de testes automatizados da API, execute o seguinte comando na raiz do projeto:
+
+```bash
+./vendor/bin/sail test

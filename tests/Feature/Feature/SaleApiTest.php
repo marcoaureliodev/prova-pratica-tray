@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\Seller;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class SaleApiTest extends TestCase
@@ -27,12 +26,12 @@ class SaleApiTest extends TestCase
 
         // Assert
         $response->assertStatus(201)
-                 ->assertJson([
-                    'data' => [
-                        'value' => '100.00',
-                        'commission' => '8.50' // 8.5% de 100.00
-                    ]
-                 ]);
+            ->assertJson([
+                'data' => [
+                    'value' => '100.00',
+                    'commission' => '8.50', // 8.5% de 100.00
+                ],
+            ]);
 
         $this->assertDatabaseHas('sales', ['value' => 100.00]);
     }

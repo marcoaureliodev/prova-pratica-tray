@@ -3,24 +3,23 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\SellerResource;
 use App\Http\Resources\SaleResource;
+use App\Http\Resources\SellerResource;
+use App\Mail\SellerDailyReport;
 use App\Models\Seller;
 use Illuminate\Http\Request;
-use App\Mail\SellerDailyReport;
 use Illuminate\Support\Facades\Mail;
 
 class SellerController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      */
-     public function index()
-     {
+    public function index()
+    {
         return SellerResource::collection(Seller::all());
-        //Ação 4: Commit do Progresso
-     }
+        // Ação 4: Commit do Progresso
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -28,12 +27,14 @@ class SellerController extends Controller
     public function store(StoreSellerRequest $request)
     {
         $seller = Seller::create($request->validated());
+
         return new SellerResource($seller);
     }
 
     public function sales(Seller $seller)
     {
         $sales = $seller->sales()->with('seller')->get();
+
         return SaleResource::collection($sales);
     }
 
@@ -58,8 +59,8 @@ class SellerController extends Controller
         $yesterday = now()->subDay();
 
         $sales = $seller->sales()
-                        ->whereDate('sale_date', $yesterday)
-                        ->get();
+            ->whereDate('sale_date', $yesterday)
+            ->get();
 
         if ($sales->isEmpty()) {
             return response()->json(['message' => 'Nenhuma venda encontrada para este vendedor ontem.'], 404);

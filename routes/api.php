@@ -1,10 +1,9 @@
 <?php
 
-use App\Http\Controllers\Api\SellerController;
 use App\Http\Controllers\Api\SaleController;
+use App\Http\Controllers\Api\SellerController;
 
 Route::apiResource('sellers', SellerController::class);
-
 
 Route::apiResource('sales', SaleController::class)->only(['index', 'store']);
 

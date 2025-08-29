@@ -23,7 +23,7 @@ class AdminDailyReport extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->subject('Relatório de Vendas Geral do Dia')
-                    ->markdown('emails.reports.admin_daily');
+            ->markdown('emails.reports.admin_daily');
     }
 
     /**

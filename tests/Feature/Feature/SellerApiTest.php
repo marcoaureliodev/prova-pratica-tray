@@ -38,7 +38,7 @@ class SellerApiTest extends TestCase
 
         // Assert: Verificar a resposta e o banco de dados
         $response->assertStatus(201)
-                ->assertJsonFragment(['name' => 'Marco Machado']);
+            ->assertJsonFragment(['name' => 'Marco Machado']);
 
         $this->assertDatabaseHas('sellers', ['email' => 'marcomachado@tray.com.br']);
     }
@@ -51,7 +51,7 @@ class SellerApiTest extends TestCase
 
         // Assert: Verificar se a validação falhou
         $response->assertStatus(422) // Unprocessable Entity
-                ->assertJsonValidationErrors('email');
+            ->assertJsonValidationErrors('email');
     }
 
     /** @test */
@@ -76,9 +76,9 @@ class SellerApiTest extends TestCase
                     'id',
                     'value',
                     'commission',
-                    'sale_date'
-                ]
-            ]
+                    'sale_date',
+                ],
+            ],
         ]);
     }
 }

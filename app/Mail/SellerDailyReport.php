@@ -14,7 +14,7 @@ class SellerDailyReport extends Mailable implements ShouldQueue
     use Queueable, SerializesModels;
 
     /**
-     * Create a new message instance.  
+     * Create a new message instance.
      */
     public function __construct(
         public int $salesCount,
@@ -25,7 +25,7 @@ class SellerDailyReport extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->subject('Seu Relatório de Vendas Diário')
-                    ->markdown('emails.reports.seller_daily');
+            ->markdown('emails.reports.seller_daily');
     }
 
     /**

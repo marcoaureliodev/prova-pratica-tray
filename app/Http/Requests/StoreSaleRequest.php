@@ -27,5 +27,4 @@ class StoreSaleRequest extends FormRequest
             'sale_date' => 'required|date_format:Y-m-d',
         ];
     }
-
 }

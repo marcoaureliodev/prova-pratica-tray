@@ -27,7 +27,7 @@ class SendDailyReportsCommandTest extends TestCase
         // Vendedor 1: Com vendas ontem
         $seller1 = Seller::factory()->has(Sale::factory()->count(2)->state([
             'value' => 100, // 2 vendas de 100 = 200
-            'sale_date' => $yesterday
+            'sale_date' => $yesterday,
         ]))->create();
 
         // Vendedor 2: Sem vendas ontem

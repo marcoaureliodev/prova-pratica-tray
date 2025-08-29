@@ -13,7 +13,7 @@ class Sale extends Model
     protected $fillable = [
         'seller_id',
         'value',
-        'sale_date'
+        'sale_date',
     ];
 
     public function seller()

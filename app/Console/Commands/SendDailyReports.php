@@ -2,12 +2,10 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-
 use App\Mail\AdminDailyReport;
 use App\Mail\SellerDailyReport;
 use App\Models\Sale;
-use App\Models\Seller;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
 class SendDailyReports extends Command
@@ -32,7 +30,7 @@ class SendDailyReports extends Command
     public function handle()
     {
         $yesterday = now()->subDay();
-        $this->info("Gerando relatórios para vendas do dia: " . $yesterday->toDateString());
+        $this->info('Gerando relatórios para vendas do dia: '.$yesterday->toDateString());
 
         $sales = Sale::query()
             ->with('seller')
@@ -40,7 +38,8 @@ class SendDailyReports extends Command
             ->get();
 
         if ($sales->isEmpty()) {
-            $this->info("Nenhuma venda encontrada para o dia.");
+            $this->info('Nenhuma venda encontrada para o dia.');
+
             return 0;
         }
 
@@ -63,7 +62,7 @@ class SendDailyReports extends Command
         // Enfileira o e-mail para o admin
         $adminEmail = config('mail.admin_address', 'admin@exemplo.com'); // Use um e-mail configurável
         Mail::to($adminEmail)->queue(new AdminDailyReport($grandTotal));
-        $this->info("Relatório do administrador enfileirado.");
+        $this->info('Relatório do administrador enfileirado.');
 
         return 0;
     }

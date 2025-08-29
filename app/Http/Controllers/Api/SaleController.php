@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Resources\SaleResource;
 use App\Models\Sale;
+use Illuminate\Http\Request;
 
 class SaleController extends Controller
 {
@@ -16,6 +16,7 @@ class SaleController extends Controller
     public function index()
     {
         $sales = Sale::with('seller')->get();
+
         return SaleResource::collection($sales);
     }
 
@@ -26,6 +27,7 @@ class SaleController extends Controller
     {
         \Log::info('Sale store request:', $request->all());
         $sale = Sale::create($request->validated());
+
         return new SaleResource($sale);
     }
 
