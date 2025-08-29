@@ -27,43 +27,48 @@ Siga os passos abaixo para configurar e executar o ambiente de desenvolvimento.
 ```bash
 git clone https://github.com/marcoaureliodev/prova-pratica-tray.git
 cd prova-pratica-tray
+```
 
 **2. Configuração do Backend (API - Laravel)**
 
 * **Inicie os contêineres Docker:**
 ```bash
 ./vendor/bin/sail up -d
+```
 
 * **Instale as dependências do PHP:**
 ```bash
 ./vendor/bin/sail composer install
+```
 
 * **Gerar chave da aplicação:**
 ```bash
 ./vendor/bin/sail artisan key:generate
+```
 
 * **Execute as Migrations e Seeders:** Isso criará as tabelas e populará o banco de dados com dados de exemplo. 
 ```bash
 ./vendor/bin/sail artisan migrate --seed
-
+```
 
 **3. Configuração do Frontend (Aplicação - Vue.js)**
 
 * **Navegue até a pasta do frontend:*
 ```bash
 cd frontend
+```
 
 * **Instale as dependências do JavaScript:**
 ```bash
 npm install
+```
 
 * **Inicie o servidor de desenvolvimento do Vue:**
 ```bash
 npm run dev
-
+```
 
 Após seguir todos os passos, a API estará acessível em http://localhost e a aplicação frontend em http://localhost:5173 (ou outra porta indicada no terminal).
-
 
 ## Endpoints da API
 
@@ -84,3 +89,4 @@ Para rodar a suíte de testes automatizados da API, execute o seguinte comando n
 
 ```bash
 ./vendor/bin/sail test
+```
