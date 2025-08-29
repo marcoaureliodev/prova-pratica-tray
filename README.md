@@ -75,6 +75,7 @@ Após seguir todos os passos, a API estará acessível em http://localhost e a a
 A API fornece os seguintes endpoints:
 
 | Método | Rota | Descrição |
+| ---------------------- | ---------------------- | ---------------------- |
 | GET | /api/sellers | Lista todos os vendedores. |
 | POST | /api/sellers | Cadastra um novo vendedor. |
 | GET | /api/sales | Lista todas as vendas do sistema. |
